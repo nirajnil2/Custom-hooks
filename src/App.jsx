@@ -1,6 +1,8 @@
-//import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 //import axios from "axios";
-import useIsonline from "./hooks/useisonline";
+//import usemouseMove from "./hooks/mousemove";
+//import mouseMove from "./hooks/mousemove";
+//import useIsonline from "./hooks/useisonline";
 
 // Custom Hook
 /* function useTodos(n) {
@@ -31,12 +33,24 @@ import useIsonline from "./hooks/useisonline";
   return [todos, loading];
 } */
 // Main App Component
+
+
+function useInterval(fn , timeout){
+  const value = useEffect(()=>{
+    setInterval(()=>{
+      fn(); 
+    } , timeout)
+    return () =>{
+      clearInterval(value);
+    }
+  })
+}
 function App() {
-  const isonline = useIsonline();
+ /*  const isonline = useIsonline();
   if(isonline){
     return "Your are  online  yay! ";
   }
-  return "Your are offline ";
+  return "Your are offline "; */
   /* const [todos, loading] = useTodos(5);
 
   if (loading) {
@@ -48,11 +62,26 @@ function App() {
        {todos.map((todo) => (
         <Track key={todo.id} todo={todo} />
       ))} 
-      
     </>
   ); */
-}
 
+ /*  const getvalue = usemouseMove();
+  return (
+    <>
+    your mouse  pointer is at {getvalue.x } and {getvalue.y}
+    </>
+  ) */
+  const [count , setcount] = useState(0);
+
+  useInterval(()=>{
+    setcount(c=>  c+1 );
+  } , 1000);
+  return <>
+  <div>
+    count:{count}
+  </div>
+  </>
+}
 // Track Component to display individual todo
 function Track({ todo }) {
   return (
